@@ -2,9 +2,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include <locale.h>
+#include <libpq-fe.h>
 
 #define logo "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n██░▄▄▀█▀▄▄▀█░██░▄▀█░▄▄▀█░▄▄█░▄▄▀█░▄▄▀█▄░▄██▄██░▄▄▀█░████▀▄▄▀█\n██░████░██░█░██░█░█░▀▀▄█░▄▄█░██░█░▀▀░██░███░▄█░██░█░▄▄░█░██░█\n██░▀▀▄██▄▄██▄▄█▄▄██▄█▄▄█▄▄▄█▄██▄█▄██▄██▄██▄▄▄█▄██▄█▄██▄██▄▄██\n▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀"
-#define versao "0.0.1"
+#define versao "-------------------------------------------------0.0.2-------\n"
 
 struct Conexao
 {
@@ -14,18 +15,25 @@ struct Conexao
     int Port;
 };
 
+struct odbc
+{
+    char Name[200];
+};
+
 int main()
 {
     puts(logo);
     puts(versao);
     puts("\n\n");
 
+    struct odbc dns;
     struct Conexao pssql;
-    int trueConexao;
+    strcpy(dns.Name, "psqlDocker");
+    strcpy(pssql.DB, "app");
+    int trueConexao = 0;
 
-    while (trueConexao != 200)
+    while (trueConexao != 1)
     {
-
         char ValidacaoConexao[2];
 
         printf("Digite o usuario da coneão.\n");
@@ -36,27 +44,39 @@ int main()
         fgets(pssql.Senha, sizeof(pssql.Senha), stdin);
         fflush(stdin);
 
-        printf("Digite a port da conexão.\n");
-        scanf("%d", &pssql.Port);
-        while (getchar() != '\n')
-            ;
+        // printf("Digite a port da conexão.\n");
+        // scanf("%d", &pssql.Port);
+        // while (getchar() != '\n')
+        ;
 
-        printf("Digite o banco da conexão.\n");
-        fgets(pssql.DB, sizeof(pssql.DB), stdin);
-        fflush(stdin);
+        // printf("Digite o banco da conexão.\n");
+        // fgets(pssql.DB, sizeof(pssql.DB), stdin);
+        // fflush(stdin);
 
-        printf("Os dados de conexão estão corretos ?\n Usuário: %s\n Senha: %s\n Banco: %s\n Porta: %d\n\n [S\\N]\n", pssql.Usuario, pssql.Senha, pssql.DB, pssql.Port);
+        printf("Dados de conexão fornecidos:\nUsuário: %s\nSenha: %s\n", pssql.Usuario, pssql.Senha);
+        printf("Os dados de conexão estão corretos? [S/N]\n");
         fgets(ValidacaoConexao, 2, stdin);
 
         if (strcmp(ValidacaoConexao, "s") == 0 || strcmp(ValidacaoConexao, "S") == 0)
         {
-            trueConexao = 200;
+            char ConexaoOBDC[400] = "";
+            trueConexao = 1;
+            system("clear");
+            puts(logo);
+            puts(versao);
+            strcat(ConexaoOBDC, "isql ");
+            strcat(ConexaoOBDC, dns.Name);
+            strcat(ConexaoOBDC, " ");
+            strcat(ConexaoOBDC, pssql.Usuario);
+            strcat(ConexaoOBDC, " ");
+            strcat(ConexaoOBDC, pssql.Senha);
+            strcat(ConexaoOBDC, "-b -H -k -J");
             puts("Conectado com sucesso !\n\n");
+            puts(ConexaoOBDC);
+            system(ConexaoOBDC);
+            continue;
         }
-        else
-            trueConexao = 400;
-        puts("Digite novamente as credenciais");
-    }
 
-    return 0;
+        return 0;
+    };
 }
