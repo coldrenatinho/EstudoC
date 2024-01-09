@@ -10,7 +10,7 @@ Stucts em C - tipo da dados compostos
 */
 
 #define logo "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n██░▄▄▀█▀▄▄▀█░██░▄▀█░▄▄▀█░▄▄█░▄▄▀█░▄▄▀█▄░▄██▄██░▄▄▀█░████▀▄▄▀█\n██░████░██░█░██░█░█░▀▀▄█░▄▄█░██░█░▀▀░██░███░▄█░██░█░▄▄░█░██░█\n██░▀▀▄██▄▄██▄▄█▄▄██▄█▄▄█▄▄▄█▄██▄█▄██▄██▄██▄▄▄█▄██▄█▄██▄██▄▄██\n▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀"
-#define versao "-------------------------------------------------0.0.1-------\n"
+#define versao "-------------------------------------------------0.0.2-------\n"
 
 #define T 50
 
@@ -49,7 +49,7 @@ int main()
     strcpy(Pedro.Nome, "Pedro P. Silva");
 
     printf("Inserindo Dados via código.:\n");
-    sleep(3);
+    sleep(1.5);
     printf("Pedro.idade: %d;\n", Pedro.Idade);
     printf("Pedro.Peso: %.4f;\n", Pedro.Peso);
     printf("Pedro.Nome: %s.\n", Pedro.Nome);
@@ -60,13 +60,14 @@ int main()
         ;
     sleep(0.5);
 
-    system("clear");
+    printf("\033[2J\033[H");
+    ;
     puts(logo);
     puts(versao);
     sleep(0.5);
 
     puts("Iniciando com dados digitados pelo usuário.:\n");
-    sleep(5);
+    sleep(2);
     puts("Digite o Nome:\n");
     fgets(VarPessoa.Nome, sizeof(VarPessoa.Nome), stdin);
     fflush(stdin);
@@ -80,7 +81,21 @@ int main()
     printf("VarPessoa.idade: %d;\n", VarPessoa.Idade);
     printf("VarPessoa.Peso: %.2f;\n", VarPessoa.Peso);
     printf("VarPessoa.Nome: %s\n", VarPessoa.Nome);
-    puts("\n\n");
+
+    size_t comprimento = strlen(VarPessoa.Nome);
+    if (VarPessoa.Nome[comprimento - 1] == '\n')
+    {
+        VarPessoa.Nome[comprimento - 1] = '\0';
+    }
+
+    if (strcmp(VarPessoa.Nome, "Renato") == 0)
+    {
+        puts("I like your name\n");
+    }
+    else
+    {
+        puts("\n");
+    }
 
     puts("Fim da exexução\n\n");
 
