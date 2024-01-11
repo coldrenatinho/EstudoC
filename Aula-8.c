@@ -90,11 +90,7 @@ int main()
 
     if (strcmp(VarPessoa.Nome, "Renato") == 0)
     {
-        puts("I like your name\n");
-    }
-    else
-    {
-        puts("\n");
+        puts("I like your name!!!\n");
     }
 
     puts("Fim da exexução\n\n");
