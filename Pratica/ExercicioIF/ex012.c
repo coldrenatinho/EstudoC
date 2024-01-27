@@ -9,10 +9,30 @@ desconte 8% de impostos. Imprima o salário inicial, o salário com o aumento e 
 struct Funcionario
 {
     char Nome[200];
-    float SalarioInicial;
-    float salaioAumento;
+    float salarioInicial;
+    float salarioAumento;
     float salarioFinal;
 };
+
+void f_calculaAumentoSalario(struct Funcionario *funcionario, int cq, float aumentoP, float descontoR)
+{
+
+    for (int i = 0; i < cq; i++)
+    {
+        funcionario[i].salarioAumento = funcionario[i].salarioInicial * (aumentoP / 100.0) + funcionario[i].salarioInicial;
+        funcionario[i].salarioFinal = funcionario[i].salarioAumento - funcionario[i].salarioAumento * (descontoR / 100.0);
+    }
+}
+
+void f_mostraResultado(struct Funcionario *funcionario, int rq)
+{
+    for (int i = 0; i < rq; i++)
+    {
+        printf(
+            "Funcionario: %s\n Salario Inicial:\t %f\t Reajuste salario:\t %f\t Salario Final: %f\t",
+            funcionario[i].Nome, funcionario[i].salarioInicial, funcionario[i].salarioAumento, funcionario[i].salarioFinal);
+    }
+}
 
 int main()
 {
@@ -24,34 +44,31 @@ int main()
     int qauntidadeFuncionario = 0;
 
     printf("Digite a quantidade de Funcionario:\n");
-    scantf("%d", &qauntidadeFuncionario);
+    scanf("%d", &qauntidadeFuncionario);
 
     struct Funcionario funcionario[qauntidadeFuncionario];
 
     for (int i = 0; i < qauntidadeFuncionario; i++)
     {
-        funcionario[i].Nome = "";
-        funcionario[i].SalarioInicial = 0;
-        funcionario[i].SalarioAumento = 0;
-        funcionario[i].SalarioFinal = 0;
+        strcpy(funcionario[i].Nome, "");
+        funcionario[i].salarioInicial = 0;
+        funcionario[i].salarioAumento = 0;
+        funcionario[i].salarioFinal = 0;
     }
 
     printf("Digite a porcentagem de Aumento:\t\n");
-    scatf("%d", &);
+    scanf("%f", &aumtP);
     printf("Digite a porcentagem de Amor:\t\n");
+    scanf("%f", &amr);
 
     for (int i = 0; i < qauntidadeFuncionario; i++)
     {
-
         printf("Digite o nome do funcionario:\n");
-        fgets(funcionario[i].Nome, sizeof(funcionario[i].Nome), stdim);
-        fflush(stdin);
-        printf("Digite o salario atualdo do funcionario: %s\n", funcionario[i].Nome);
-        scanf("%f", funcionario[i].SalarioInicial);
+        scanf("%s", &funcionario[i].Nome);
+        printf("Digite o salario atualdo do funcionario:\n");
+        scanf("%f", &funcionario[i].salarioInicial);
     }
 
-    do
-    {
-        printf("Digite")
-    }
+    f_calculaAumentoSalario(funcionario, qauntidadeFuncionario, aumtP, amr);
+    f_mostraResultado(funcionario, qauntidadeFuncionario);
 }
