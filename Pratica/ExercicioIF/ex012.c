@@ -29,7 +29,7 @@ void f_mostraResultado(struct Funcionario *funcionario, int rq)
     for (int i = 0; i < rq; i++)
     {
         printf(
-            "Funcionario: %s\n Salario Inicial:\t %f\t Reajuste salario:\t %f\t Salario Final: %f\t",
+            "\nFuncionario: %s\n Salario Inicial:\t %f\t Reajuste salario:\t %f\t Salario Final: %f\n",
             funcionario[i].Nome, funcionario[i].salarioInicial, funcionario[i].salarioAumento, funcionario[i].salarioFinal);
     }
 }
@@ -65,7 +65,7 @@ int main()
     {
         printf("Digite o nome do funcionario:\n");
         scanf("%s", &funcionario[i].Nome);
-        printf("Digite o salario atualdo do funcionario:\n");
+        printf("Digite o salario atual do do funcionario:\n");
         scanf("%f", &funcionario[i].salarioInicial);
     }
 
