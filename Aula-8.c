@@ -60,8 +60,8 @@ int main()
         ;
     sleep(0.5);
 
-    printf("\033[2J\033[H");
-    ;
+    system("clear");
+
     puts(logo);
     puts(versao);
     sleep(0.5);
